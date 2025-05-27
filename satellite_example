@@ -1,0 +1,38 @@
+import QtLocation
+import QtPositioning
+
+MapView {
+    id: mapView
+
+    map.plugin: Plugin {
+        name: "osm"
+        PluginParameter {
+            name: "osm.mapping.custom.host"
+            value: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/%z/%y/%x"
+        }
+        PluginParameter {
+            name: "osm.mapping.cache.directory"
+            value: "C:/Temp/qtlocation-cache"
+        }
+        PluginParameter {
+            name: "osm.mapping.copyright"
+            value: "© Esri"
+        }
+        // Add reference overlay
+        PluginParameter {
+            name: "osm.mapping.custom.overlay.host"
+            value: "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Reference_Overlay/MapServer/tile/%z/%y/%x"
+        }
+        PluginParameter {
+            name: "osm.mapping.custom.overlay.transparent"
+            value: true
+        }
+    }
+
+    // Set initial center and zoom level
+    map.center: QtPositioning.coordinate(35.6892, 51.3890) // Tehran coordinates
+    map.zoomLevel: 4
+
+    // Set the map type to satellite
+    map.activeMapType: map.supportedMapTypes[6]  // satellite = 6
+}
